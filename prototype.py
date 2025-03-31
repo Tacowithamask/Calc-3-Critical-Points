@@ -4,7 +4,6 @@
 # and the x and or y values in which the derivative is equivalent to zero.
 #********************************************************************************************************#
 import math
-
 import mpmath
 import sympy
 from sympy import roots, symbols, Eq, solve, diff, sympify
