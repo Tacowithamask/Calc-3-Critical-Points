@@ -3,12 +3,13 @@
 # of a single, or possibly two variables, and then prints the functions derivative
 # and the x and or y values in which the derivative is equivalent to zero.
 #********************************************************************************************************#
-import math
 
+import math
 import mpmath
 import sympy
 from sympy import roots, symbols, Eq, solve, diff, sympify
 e = math.e
+
 def typeof(function,var1,var2):
     x,y = symbols(f"{var1} {var2}")
     f = sympify(function)
