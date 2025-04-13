@@ -23,6 +23,10 @@ def typeof(function,var1,var2=None):
         solutions = multi_critical(function, var1, var2)
         if solutions == "No critical points.":
             return "None"
+        elif type(solutions) is dict:
+            evaluated = []
+            evaluated.append((solutions[x],solutions[y]))
+            return evaluated
         else:
             results=[]
             for x_val, y_val in solutions:
