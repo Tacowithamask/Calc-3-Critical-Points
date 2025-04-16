@@ -20,7 +20,7 @@ def typeof(function,var1,var2=None):
         f_yy = diff(f_y,y)
         f_xy = diff(f_x,y)
         D = sympify((f_xx*f_yy)-f_xy**2)
-        solutions = multi_critical(function, var1, var2)
+        solutions = critical(function, var1, var2)
         if solutions == "No critical points.":
             return "None"
         elif type(solutions) is dict:
