@@ -91,6 +91,9 @@ def critical(function, var1, var2=None):
         solutions = solve((partial_x, partial_y), (x, y))
         if not solutions:
             return "No critical points."
+        elif type(solutions) is dict:
+            evaluated = []
+            evaluated.append((solutions[x],solutions[y]))
         else:
             evaluated = []
             for x_str, y_str in solutions:
