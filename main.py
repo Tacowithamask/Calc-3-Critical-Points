@@ -4,11 +4,28 @@
 # and the x and or y values in which the derivative is equivalent to zero.
 #********************************************************************************************************#
 
+
 import math
 import mpmath
 import sympy
 from sympy import roots, symbols, Eq, solve, diff, sympify
 e = math.e
+
+
+def start():
+    choice = input("If you want to use two variables enter Y/y: ")
+    if choice!="y" or choice!="y":
+        function = input("Enter a function of a single variable (example x**2): ")
+        var1 = input("Enter the first variable of the function: ")
+        print(f"The derivative is {derivative(function, var1)}")
+        print(f"The critical points are, {critical(function,var1)}")
+    else:
+        function = input("Enter a function of two variables, x and y (example x**2+y**2): ")
+        var1 = input("Enter the first variable of the function: ")
+        var2 = input("Enter the second variable of the function: ")
+        print(f"The derivative is {multiderivative(function, var1, var2)}")
+        print(f"The critical points are, {multi_critical(function,var1,var2)}")
+        print(f"The types of critical points are, {typeof(function,var1,var2)}")
 
 def typeof(function,var1,var2):
     x,y = symbols(f"{var1} {var2}")
@@ -41,6 +58,7 @@ def derivative(function, var1):
     f = sympify(function)
     return diff(f,x)
 
+
 def multiderivative(function, var1, var2):
     x,y=symbols(f"{var1} {var2}")
     f = sympify(function)
@@ -60,11 +78,23 @@ def multi_critical(function,var1,var2):
     solutions =  solve((partial_x,partial_y),(x,y))
     if not solutions:
         return "No critical points."
+    if isinstance(solutions, dict):
+        x_val = solutions[x] 
+        y_val = solutions[y] 
+        evaluated = [(x_val,y_val)]
+        return evaluated
     else:
         evaluated = []
         for x_str, y_str in solutions:
-            x_val = round((x_str.evalf()),4)
-            y_val = round((y_str.evalf()),4)
+            try:
+                x_val = round((x_str.evalf()),4)
+            except TypeError:
+                x_val = x_str
+            try:
+                y_val = round((y_str.evalf()),4)
+            except TypeError:
+                y_val = y_str
+
             evaluated.append((x_val,y_val))
         filtered_values = [
             (x_eval, y_eval)
@@ -74,21 +104,8 @@ def multi_critical(function,var1,var2):
         return filtered_values
 
 def main():
-    choice = int(input("If you want to use a multivariable function, input 1: "))
-    if choice == 1:
-        function = input("Enter a function of two variables, x and y (example x**2+y**2): ")
-        var1 = input("Enter the first variable of the function: ")
-        var2 = input("Enter the second variable of the function: ")
-        print(f"The derivative is {multiderivative(function, var1, var2)}\n")
-        print(f"The critical points are, {multi_critical(function,var1,var2)}")
-        print(f"The types of critical points are, {typeof(function,var1,var2)}")
-    else:
-        function = input("Enter a function of a single variable (example x**2): ")
-        var1 = input("Enter the first variable of the function: ")
-        print(f"The derivative is {derivative(function, var1)}\n")
-        print(f"The critical points are, {critical(function,var1)}")
-    return
+    start()
+    return 
 
 if __name__ == "__main__":
     main()
-
